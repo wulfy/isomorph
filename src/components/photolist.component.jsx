@@ -3,30 +3,33 @@
 var React = require('react');
 var PhotoItem = require('./photoitem.component.jsx');
 
-var superagent = require('superagent');
+var recentAction = require('../actions/recent.action');
+var searchAction = require('../actions/search.action');
+
+var PhotoStore = require('../stores/photo.store');
+
+var FluxMixin = require('../mixins/flux-mixin');
 
 
 module.exports = React.createClass({
 
+  mixins: [FluxMixin],
+  stores: [PhotoStore],
+  
   componentWillMount: function () {
-    var self = this;
-    superagent
-      .get('https://api.flickr.com/services/rest')
-      .query({
-        method: 'flickr.photos.getRecent',
-        api_key: '70dc2298d7ba4669796e5ccbf4e3288a',
-        format: 'json',
-        nojsoncallback: 1
-      })
-      .end(function(error, res){
-        self.setState({photos: res.body.photos.photo});
-      });
+    recentAction();
   },
 
   getInitialState: function () {
     return {photos: []}
   },
-
+  
+  onChange: function () {
+    console.log('[COMPONENT] Notified');
+    var photos = PhotoStore.getPhotos();
+    this.setState({photos: photos});
+  },
+  
   render: function() {
   console.log("rendering list "+this.state.photos.length);
     var photos = this.state.photos.map(function(photo) {

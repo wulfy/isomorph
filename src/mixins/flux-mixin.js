@@ -17,6 +17,7 @@ module.exports = {
   
   componentDidMount: function() {
     this.stores.forEach(function(store) {
+	console.log("add listener "+ store.name);
       eventEmitter.addListener(store.name, this.onChange);
     }, this);
   },

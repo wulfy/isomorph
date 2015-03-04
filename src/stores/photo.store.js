@@ -26,6 +26,7 @@ module.exports = new BasicStore({
 
   //retourne les photos du store
   getPhotos: function () {
+  console.log("get photos:" + photos.length);
     return photos;
   }
 

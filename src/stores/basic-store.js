@@ -15,6 +15,7 @@ var BasicStoreConstructor = function(storeDef) {
   // cf flux-mixin pour le register du listener
   //L'emitter va appeler toutes les fonctions enregistrées en callback qui correspondent au type du signal (ici le nom du store)
   var emitChange = function () {
+  console.log('Emitting!');
     eventEmitter.emit(storeDef.name);
   };
 

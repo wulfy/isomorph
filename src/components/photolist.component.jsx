@@ -21,7 +21,7 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return {photos: []}
+    return {photos: PhotoStore.getPhotos()}
   },
   
   onChange: function () {

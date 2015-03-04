@@ -9,7 +9,7 @@ var constants = require('../constants/event_constant');
 * permet de MAj le store qui mettra à jour les vues
 *
 **/ 
-module.exports = function() {
+module.exports = function(done) {
   //superagent est une librairie HTTP côté client
   //effectue une requete sur l'API de flickr 
   superagent
@@ -28,6 +28,12 @@ module.exports = function() {
         action: constants.handlers.RECENT,
         data: res.body.photos.photo
       });
+	  
+	  if(typeof done !== 'undefined') {
+        done();
+      }
     });
+	
+	
 
 };
